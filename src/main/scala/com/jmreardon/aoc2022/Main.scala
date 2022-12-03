@@ -10,8 +10,8 @@ import java.time.ZoneId
 
 object Main extends IOApp {
 
-  private val days: Map[String, IO[Unit]] =
-    Day01.entries
+  private val days: Map[String, fs2.Stream[IO, String]] =
+    Day01.entries ++ Day02.entries ++ Day03.entries
 
   // This is your new "main"!
   def run(args: List[String]): IO[ExitCode] =
@@ -31,7 +31,11 @@ object Main extends IOApp {
     for {
       _ <- IO.println(s"Challenge $challengeId:")
       start <- IO.monotonic
-      _ <- days.getOrElse(challengeId, IO.println("Challenge does not exist"))
+      _ <- days
+        .get(challengeId)
+        .fold(IO.println("Challenge does not exist"))(
+          _.compile.lastOrError.flatMap(result => IO.println(s"$result"))
+        )
       end <- IO.monotonic
 
       runTime = end - start

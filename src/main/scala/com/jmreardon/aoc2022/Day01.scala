@@ -9,18 +9,12 @@ import scala.collection.immutable.SortedSet
 
 object Day01 extends Day(1):
   override def a =
-    readCalorieCounts
-      .fold(0)(Math.max)
-      .compile
-      .lastOrError
-      .flatMap(result => IO.println(s"Max calories: ${result}"))
+    readCalorieCounts.fold(0)(Math.max).map(_.toString)
 
   override def b =
     readCalorieCounts
       .fold(List.empty[Int]) { (top, next) => (next :: top).sortWith(_ > _).take(3) }
-      .compile
-      .lastOrError
-      .flatMap(result => IO.println(s"Sum of top 3 calories: ${result.sum}"))
+      .map(_.toString)
 
   private val readCalorieCounts = Files[IO]
     .readUtf8Lines(Path(s"data/day01/input.txt"))
