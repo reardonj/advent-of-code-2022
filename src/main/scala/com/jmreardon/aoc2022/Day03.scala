@@ -8,6 +8,7 @@ import scala.collection.mutable.PriorityQueue
 import scala.collection.immutable.SortedSet
 import cats.Functor
 import cats.Traverse
+import cats.Foldable
 
 object Day03 extends Day(3):
   override def a =
@@ -20,7 +21,7 @@ object Day03 extends Day(3):
 
   private val readFile = Files[IO].readUtf8Lines(Path(s"data/day03/input.txt")).filter(_.nonEmpty)
 
-  private def contentPriority[F[_]: Traverse](contents: F[String]) =
+  private def contentPriority[F[_]: Functor: Foldable](contents: F[String]) =
     contents.map(_.toSet).reduceLeftOption(_ intersect _).getOrElse(Set.empty).map(priority).sum
 
   private def priority(c: Char): Int = 1 + c - (if c >= 'a' then 'a' else ('A' - 26))
