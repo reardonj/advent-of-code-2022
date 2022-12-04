@@ -4,8 +4,6 @@ import cats.syntax.all._
 import cats.effect.syntax.all._
 import cats.effect._
 import fs2.io.file._
-import scala.collection.mutable.PriorityQueue
-import scala.collection.immutable.SortedSet
 
 object Day02 extends Day(2):
   override def a = readInput.map(readMatch).map(scoreMatch).fold(0)(_ + _).map(_.toString)

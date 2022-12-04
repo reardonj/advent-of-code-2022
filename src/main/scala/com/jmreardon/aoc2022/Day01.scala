@@ -4,8 +4,6 @@ import cats.syntax.all._
 import cats.effect.syntax.all._
 import cats.effect._
 import fs2.io.file._
-import scala.collection.mutable.PriorityQueue
-import scala.collection.immutable.SortedSet
 
 object Day01 extends Day(1):
   override def a =
