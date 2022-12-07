@@ -4,8 +4,6 @@ import cats.syntax.all._
 import cats.effect.syntax.all._
 import cats.effect._
 import fs2.io.file._
-import cats.Functor
-import cats.Foldable
 
 object Day04 extends Day(4):
   override def a =
