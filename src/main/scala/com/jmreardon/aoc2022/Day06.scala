@@ -9,10 +9,10 @@ import cats.Foldable
 
 object Day06 extends Day(6):
   override def a =
-    readFile.through(findDistinctMarker(4)).fold("")((a, b) => a + " " + b)
+    readFile.flatMap(findDistinctMarker(4)).fold("")((a, b) => a + " " + b)
 
   override def b =
-    readFile.through(findDistinctMarker(14)).fold("")((a, b) => a + " " + b)
+    readFile.flatMap(findDistinctMarker(14)).fold("")((a, b) => a + " " + b)
 
   private def findDistinctMarker(count: Int)(line: String) =
     fs2

@@ -11,7 +11,7 @@ import java.time.ZoneId
 object Main extends IOApp {
 
   private val days: Map[String, fs2.Stream[IO, String]] =
-    Seq(Day01, Day02, Day03, Day04, Day05, Day06).map(_.entries).combineAll
+    Seq(Day01, Day02, Day03, Day04, Day05, Day06, Day07).foldMap(_.entries)
 
   // This is your new "main"!
   def run(args: List[String]): IO[ExitCode] =
